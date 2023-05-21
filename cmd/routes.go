@@ -11,7 +11,7 @@ func (app *Config) routes() http.Handler {
 
 	mux.Use(middleware.Recoverer)
 
-	//mux.Get("/api/v1/async", )
+	mux.Get("/api/v1/async", app.async)
 
 	return mux
 }

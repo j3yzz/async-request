@@ -13,4 +13,5 @@ type Config struct {
 	ErrorLog *log.Logger
 	wait     *sync.WaitGroup
 	context  context.Context
+	waitLock *sync.Mutex
 }

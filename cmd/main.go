@@ -18,7 +18,7 @@ func main() {
 	cfg.ErrorLog = log.New(os.Stdout, "INFO\t", log.Ldate|log.Ltime|log.Lshortfile)
 	cfg.Redis = initRedis(cfg)
 	cfg.wait = &sync.WaitGroup{}
-
+	cfg.waitLock = &sync.Mutex{}
 	setDefaultKeyAndValueForRedis(cfg)
 
 	cfg.serve()

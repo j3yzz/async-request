@@ -4,9 +4,11 @@ import (
 	"context"
 	"github.com/redis/go-redis/v9"
 	"log"
+	"math/rand"
 	"net/http"
 	"os"
 	"sync"
+	"time"
 )
 
 func main() {
@@ -17,7 +19,15 @@ func main() {
 	cfg.Redis = initRedis(cfg)
 	cfg.wait = &sync.WaitGroup{}
 
+	setDefaultKeyAndValueForRedis(cfg)
+
 	cfg.serve()
+}
+
+func setDefaultKeyAndValueForRedis(cfg Config) {
+	val := rand.Intn(30 - 1)
+	cfg.Redis.Set(cfg.context, "request_counter", val, time.Second*3000)
+	cfg.InfoLog.Println("request_counter default value:", val)
 }
 
 func (app *Config) serve() {
